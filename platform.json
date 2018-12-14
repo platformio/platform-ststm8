@@ -1,0 +1,33 @@
+{
+  "name": "ststm8",
+  "title": "ST STM8",
+  "description": "The STM8 is an 8-bit microcontroller family by STMicroelectronics an extended variant of the ST7 microcontroller architecture. STM8 microcontrollers are particularly low cost for a full-featured 8-bit microcontroller.",
+  "url": "https://www.st.com/en/microcontrollers/stm8-8-bit-mcus.html",
+  "homepage": "http://platformio.org/platforms/ststm8",
+  "license": "Apache-2.0",
+  "engines": {
+    "platformio": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/platformio/platform-ststm8.git"
+  },
+  "version": "0.0.0",
+  "packageRepositories": [
+    "https://dl.bintray.com/platformio/dl-packages/manifest.json",
+    "http://dl.platformio.org/packages/manifest.json"
+  ],
+  "frameworks": {
+    "arduino": {
+      "package": "framework-arduinoststm8",
+      "script": "builder/frameworks/arduino.py"
+    }
+  },
+  "packages": {
+    "framework-arduinoststm8": {
+      "type": "framework",
+      "optional": true,
+      "version": "*"
+    }
+  }
+}
