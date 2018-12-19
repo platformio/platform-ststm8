@@ -21,13 +21,40 @@
     "arduino": {
       "package": "framework-arduinoststm8",
       "script": "builder/frameworks/arduino.py"
+    },
+    "spl": {
+      "package": "framework-ststm8spl",
+      "script": "builder/frameworks/spl.py"
     }
   },
   "packages": {
+     "toolchain-sdcc": {
+      "type": "toolchain",
+      "version": "~1.30804.10766"
+    },
     "framework-arduinoststm8": {
       "type": "framework",
       "optional": true,
-      "version": "*"
+      "version": "0.40.181216"
+    },
+    "framework-ststm8spl": {
+      "type": "framework",
+      "optional": true,
+      "version": "0.20301.181217"
+    },
+    "tool-stm8binutils": {
+      "type": "uploader",
+      "version": "0.230.0"
+    },
+    "tool-stm8tools": {
+      "type": "uploader",
+      "optional": true,
+      "version": "~0.40.181218"
+    },
+    "tool-openocd": {
+      "type": "uploader",
+      "optional": true,
+      "version": "~1.1000.0"
     }
   }
 }

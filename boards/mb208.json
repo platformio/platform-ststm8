@@ -1,0 +1,26 @@
+{
+  "build": {
+    "core": "sduino",
+    "extra_flags": "-DSTM8S_MB -DSTM8S208",
+    "f_cpu": "16000000L",
+    "cpu": "stm8",
+    "mcu": "stm8s208mbt6",
+    "variant": "mb208"
+  }, 
+  "frameworks": [
+    "arduino",
+    "spl"
+  ],
+  "upload": {
+    "maximum_ram_size": 6144,
+    "maximum_size": 131072,
+    "protocol": "serial",
+    "protocols": [
+      "stlinkv2",
+      "serial"
+    ]
+  },
+  "name": "sduino MB (STM8S208MBT6B)",
+  "url": "https://github.com/roybaer/sduino_mb",
+  "vendor": "sduino"
+}

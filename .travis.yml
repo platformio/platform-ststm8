@@ -3,7 +3,12 @@ python:
   - "2.7"
 
 env:
-  - PLATFORMIO_PROJECT_DIR=examples/@TODO
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-fade-all-pins
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-internal-lib
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-ping-hc04
+  - PLATFORMIO_PROJECT_DIR=examples/spl-blink
+  - PLATFORMIO_PROJECT_DIR=examples/spl-flash
+  - PLATFORMIO_PROJECT_DIR=examples/spl-uart
 
 install:
   - pip install -U https://github.com/platformio/platformio/archive/develop.zip

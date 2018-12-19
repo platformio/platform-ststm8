@@ -1,0 +1,25 @@
+{
+  "build": {
+    "core": "sduino",
+    "extra_flags": "-DSTM8S_BLUE -DSTM8S103",
+    "f_cpu": "16000000L",
+    "cpu": "stm8",
+    "mcu": "stm8s103f3p6",
+    "variant": "standard"
+  },
+  "frameworks": [
+    "arduino",
+    "spl"
+  ],
+  "upload": {
+    "maximum_ram_size": 1024,
+    "maximum_size": 8192,
+    "protocol": "serial",
+    "protocols": [
+      "serial"
+    ]
+  },
+  "name": "ST STM8S103F3 Breakout Board",
+  "url": "https://tenbaht.github.io/sduino/hardware/stm8blue/",
+  "vendor": "ST"
+}

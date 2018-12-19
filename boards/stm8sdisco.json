@@ -1,0 +1,46 @@
+{
+  "build": {
+    "core": "sduino",
+    "extra_flags": "-DSTM8S_DISCOVERY -DSTM8S105",
+    "f_cpu": "16000000L",
+    "cpu": "stm8",
+    "mcu": "stm8s105c6t6",
+    "variant": "stm8sdisco"
+  },
+  "debug": {
+    "openocd_target": "stm8s",
+    "tools": {
+      "stlink": {
+        "default": true,
+        "server": {
+          "arguments": [
+            "-f",
+            "scripts/interface/stlink.cfg",
+            "-f",
+            "scripts/target/stm8s.cfg"
+          ],
+          "executable": "bin/openocd",
+          "package": "tool-openocd"
+        },
+        "onboard": true
+      }
+    }
+  },
+  "frameworks": [
+    "arduino",
+    "spl"
+  ],
+  "upload": {
+    "maximum_ram_size": 2048,
+    "maximum_size": 32768,
+    "protocol": "stlink",
+    "protocols": [
+      "serial",
+      "stlink",
+      "stlinkv2"
+    ]
+  },
+  "name": "ST STM8S-DISCOVERY",
+  "url": "https://www.st.com/en/evaluation-tools/stm8s-discovery.html",
+  "vendor": "ST"
+}
