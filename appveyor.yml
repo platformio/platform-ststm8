@@ -5,7 +5,7 @@ environment:
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-fade-all-pins"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-internal-lib"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-ping-hc04"
-    - PLATFORMIO_PROJECT_DIR: "examples/spl-blink4"
+    - PLATFORMIO_PROJECT_DIR: "examples/spl-blink"
     - PLATFORMIO_PROJECT_DIR: "examples/spl-flash"
     - PLATFORMIO_PROJECT_DIR: "examples/spl-uart"
 
