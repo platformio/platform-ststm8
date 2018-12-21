@@ -4,9 +4,9 @@ python:
 
 before_install:
   # This workaround is required to avoid libstdc++ errors
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update
-  - sudo apt-get install gcc-5 g++-5
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -y
+  - sudo apt-get -y install gcc-5 g++-5
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 1
   - wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
   - sudo dpkg -i libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
