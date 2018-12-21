@@ -2,6 +2,13 @@ language: python
 python:
   - "2.7"
 
+ addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++-4.9-dev
+
 env:
   - PLATFORMIO_PROJECT_DIR=examples/arduino-fade-all-pins
   - PLATFORMIO_PROJECT_DIR=examples/arduino-internal-lib
@@ -16,6 +23,7 @@ install:
 
 script:
   - platformio run -d $PLATFORMIO_PROJECT_DIR
+  - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
 
 notifications:
   email: false
