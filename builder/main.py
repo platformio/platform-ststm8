@@ -159,7 +159,7 @@ elif "stlink" in upload_protocol:
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 # custom upload tool
-elif "UPLOADCMD" in env:
+elif upload_protocol == "custom":
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 else:
@@ -171,4 +171,4 @@ AlwaysBuild(env.Alias("upload", target_firm, upload_actions))
 # Setup default targets
 #
 
-Default([target_buildprog, target_size]) 
+Default([target_buildprog, target_size])
