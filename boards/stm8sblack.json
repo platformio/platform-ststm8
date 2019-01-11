@@ -1,0 +1,26 @@
+{
+  "build": {
+    "core": "sduino",
+    "extra_flags": "-DSTM8S_BLACK -DSTM8S105",
+    "f_cpu": "16000000L",
+    "cpu": "stm8",
+    "mcu": "stm8s105k4t6",
+    "variant": "stm8sblack"
+  },
+  "frameworks": [
+    "arduino",
+    "spl"
+  ],
+  "upload": {
+    "maximum_ram_size": 2048,
+    "maximum_size": 16384,
+    "protocol": "serial",
+    "protocols": [
+      "stlinkv2",
+      "serial"
+    ]
+  },
+  "name": "ST STM8S105K4T6 Breakout Board",
+  "url": "https://github.com/TG9541/stm8ef/wiki/Breakout-Boards#stm8s105k4t6-breakout-board",
+  "vendor": "ST"
+}
