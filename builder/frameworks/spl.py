@@ -46,7 +46,8 @@ def get_core_files():
 
     result = exec_command(
         command,
-        cwd=join(FRAMEWORK_DIR, "Libraries", "STM8S_StdPeriph_Driver", "inc")
+        cwd=join(FRAMEWORK_DIR, "Libraries", "STM8S_StdPeriph_Driver", "inc"),
+        env=env['ENV']
     )
 
     if result['returncode'] != 0:
