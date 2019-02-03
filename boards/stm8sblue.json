@@ -16,7 +16,8 @@
     "maximum_size": 8192,
     "protocol": "serial",
     "protocols": [
-      "serial"
+        "serial",
+        "stlinkv2"
     ]
   },
   "name": "ST STM8S103F3 Breakout Board",
