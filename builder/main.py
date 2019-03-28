@@ -149,7 +149,7 @@ elif "stlink" in upload_protocol:
     env.Replace(
         UPLOADER="stm8flash",
         UPLOADERFLAGS=[
-            "-c", board_config.get("upload.protocol"),
+            "-c", "$UPLOAD_PROTOCOL",
             "-p", "%s" % mcu[:8] + "?" + mcu[9],
             "-s", "flash", "-w"
         ],
