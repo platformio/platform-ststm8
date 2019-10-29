@@ -22,7 +22,7 @@ https://www.st.com/en/embedded-software/stsw-stm8069.html
 """
 
 import sys
-from os.path import basename, isdir, join
+from os.path import basename, isdir, isfile, join
 
 from SCons.Script import DefaultEnvironment
 
@@ -37,6 +37,10 @@ assert isdir(FRAMEWORK_DIR)
 
 
 def get_core_files():
+    if not isfile(join(env.subst("$PROJECTSRC_DIR"), "stm8s_conf.h")):
+        print("Warning! Couldn't find stm8s_conf.h file!")
+        return []
+
     command = [
         env.subst("$CC"), "-m%s" % board_config.get("build.cpu"),
         "-D%s" % board_config.get("build.mcu")[0:8].upper(),
@@ -64,6 +68,7 @@ def get_core_files():
         src_files.append(basename(inc).replace(".h", ".c").strip())
 
     return src_files
+
 
 env.Append(
     CFLAGS=["--opt-code-size"],

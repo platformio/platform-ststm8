@@ -93,6 +93,7 @@ if env.get("PROGNAME", "program") == "program":
 
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
+    target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
     target_firm = join("$BUILD_DIR", "${PROGNAME}.ihx")
 else:
     target_elf = env.BuildProgram()
@@ -149,7 +150,7 @@ elif "stlink" in upload_protocol:
     env.Replace(
         UPLOADER="stm8flash",
         UPLOADERFLAGS=[
-            "-c", board_config.get("upload.protocol"),
+            "-c", "$UPLOAD_PROTOCOL",
             "-p", "%s" % mcu[:8] + "?" + mcu[9],
             "-s", "flash", "-w"
         ],
