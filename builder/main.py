@@ -78,9 +78,11 @@ def _ldflags_for_hex(env, ldflags):
     ldflags = ["--out-fmt-ihx" if f == "--out-fmt-elf" else f for f in ldflags]
     return ldflags
 
+
 env.Append(
     ASFLAGS=env.get("CFLAGS", [])[:],
-    __ldflags_for_hex=_ldflags_for_hex
+    __ldflags_for_hex=_ldflags_for_hex,
+    ldflags_for_hex="${__ldflags_for_hex(__env__, LINKFLAGS)}"
 )
 
 # Allow user to override via pre:script
@@ -100,8 +102,7 @@ else:
     target_firm = env.Command(
         join("$BUILD_DIR", "${PROGNAME}.ihx"),
         env['PIOBUILDFILES'],
-        env['LINKCOM'].replace("$LINKFLAGS",
-                               "${__ldflags_for_hex(__env__, LINKFLAGS)}")
+        env['LINKCOM'].replace("$LINKFLAGS", "$ldflags_for_hex")
     )
     env.Depends(target_firm, target_elf)
 

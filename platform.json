@@ -2,21 +2,22 @@
   "name": "ststm8",
   "title": "ST STM8",
   "description": "The STM8 is an 8-bit microcontroller family by STMicroelectronics an extended variant of the ST7 microcontroller architecture. STM8 microcontrollers are particularly low cost for a full-featured 8-bit microcontroller.",
-  "url": "https://www.st.com/en/microcontrollers/stm8-8-bit-mcus.html",
-  "homepage": "http://platformio.org/platforms/ststm8",
+  "homepage": "https://www.st.com/en/microcontrollers/stm8-8-bit-mcus.html",
   "license": "Apache-2.0",
+  "keywords": [
+      "dev-platform",
+      "STMicroelectronics",
+      "STM8",
+      "8-bit"
+  ],
   "engines": {
-    "platformio": "<5"
+    "platformio": "^5"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/platformio/platform-ststm8.git"
   },
-  "version": "1.0.2",
-  "packageRepositories": [
-    "https://dl.bintray.com/platformio/dl-packages/manifest.json",
-    "http://dl.platformio.org/packages/manifest.json"
-  ],
+  "version": "1.0.3",
   "frameworks": {
     "arduino": {
       "package": "framework-arduinoststm8",
@@ -30,30 +31,36 @@
   "packages": {
      "toolchain-sdcc": {
       "type": "toolchain",
+      "owner": "platformio",
       "version": "~1.30804.10766"
     },
     "framework-arduinoststm8": {
       "type": "framework",
       "optional": true,
+      "owner": "platformio",
       "version": "0.40.181216"
     },
     "framework-ststm8spl": {
       "type": "framework",
       "optional": true,
+      "owner": "platformio",
       "version": "0.20301.181217"
     },
     "tool-stm8binutils": {
       "type": "uploader",
+      "owner": "platformio",
       "version": "0.230.0"
     },
     "tool-stm8tools": {
       "type": "uploader",
       "optional": true,
+      "owner": "platformio",
       "version": "~0.40.181218"
     },
     "tool-openocd": {
       "type": "uploader",
       "optional": true,
+      "owner": "platformio",
       "version": "~2.1000.0"
     }
   }
