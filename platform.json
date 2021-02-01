@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-ststm8.git"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "frameworks": {
     "arduino": {
       "package": "framework-arduinoststm8",
