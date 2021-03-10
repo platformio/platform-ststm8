@@ -1,0 +1,25 @@
+{
+  "build": {
+    "core": "sduino",
+    "extra_flags": "-DSTM8S_NUCLEO_207K8 -DSTM8S207",
+    "f_cpu": "16000000L",
+    "cpu": "stm8",
+    "mcu": "stm8s207k8t6"
+  },
+  "frameworks": [
+    "spl"
+  ],
+  "upload": {
+    "maximum_ram_size": 6144,
+    "maximum_size": 65536,
+    "protocol": "stlinkv21",
+    "protocols": [
+      "stlinkv21",
+      "serial"
+    ],
+    "stm8flash_target": "stm8s207k8"
+  },
+  "name": "NUCLEO-8S207K8",
+  "url": "https://www.st.com/en/evaluation-tools/nucleo-8s207k8.html",
+  "vendor": "STMicroelectronics"
+}
