@@ -56,10 +56,10 @@ class Ststm8Platform(PlatformBase):
                     ])
                 else:
                     assert debug.get("openocd_target"), (
-                        "Missed target configuration for %s" % board.id)
+                        "Missing target configuration for %s" % board.id)
                     server_args.extend([
-                        "-f", "interface/%s.cfg" % link,
-                        "-c", "transport select swim",
+                        "-f", "interface/stlink-dap.cfg",
+                        # transport protocol swim is automatically selected, no need to set it
                         "-f", "target/%s.cfg" % debug.get("openocd_target")
                     ])
                     server_args.extend(debug.get("openocd_extra_args", []))
