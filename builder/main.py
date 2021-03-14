@@ -30,7 +30,7 @@ env.Replace(
     GDB="stm8-gdb",
     LD="sdldstm8",
     RANLIB="sdranlib",
-    OBJCOPY="sdobjcopy",
+    OBJCOPY="stm8-objcopy",
     SIZETOOL="stm8-size",
     OBJSUFFIX=".rel",
     LIBSUFFIX=".lib",
@@ -99,10 +99,23 @@ if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.ihx")
 else:
     target_elf = env.BuildProgram()
+    # convert elf to hex not via sdcc but via stm8-objcopy.
+    # otherwise the resulting ihex file has the debug sections (if --debug --out-fmt-elf is enabled)
+    # in it and it fails to flash
     target_firm = env.Command(
         join("$BUILD_DIR", "${PROGNAME}.ihx"),
-        env['PIOBUILDFILES'],
-        env['LINKCOM'].replace("$LINKFLAGS", "$ldflags_for_hex")
+        join("$BUILD_DIR", "${PROGNAME}.elf"), 
+        " ".join(
+            ["$OBJCOPY",
+            "-O", 
+            "ihex", 
+            "$SOURCES", 
+            "--only-section=HOME", 
+            "--only-section=GSINIT", 
+            "--only-section=GSFINAL", 
+            "--only-section=CODE", 
+            "--only-section=INITIALIZER", 
+            "$TARGET"])
     )
     env.Depends(target_firm, target_elf)
 

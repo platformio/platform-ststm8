@@ -45,8 +45,9 @@ class Ststm8Platform(PlatformBase):
         if "tools" not in debug:
             debug['tools'] = {}
 
-        # Configure OpenOCD debuggin via ST-Link
-        for link in ("stlink"):
+        # Configure OpenOCD debugging.
+        # Only via ST-Link for now
+        for link in ("stlink",):
             if link == "stlink":
                 server_args = ["-s", "$PACKAGE_DIR/scripts"]
                 if debug.get("openocd_board"):
@@ -58,6 +59,7 @@ class Ststm8Platform(PlatformBase):
                         "Missed target configuration for %s" % board.id)
                     server_args.extend([
                         "-f", "interface/%s.cfg" % link,
+                        "-c", "transport select swim",
                         "-f", "target/%s.cfg" % debug.get("openocd_target")
                     ])
                     server_args.extend(debug.get("openocd_extra_args", []))
