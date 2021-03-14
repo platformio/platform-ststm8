@@ -90,6 +90,15 @@ if env.get("PROGNAME", "program") == "program":
     env.Replace(PROGNAME="firmware")
 
 #
+# Automatically remove flags which are incompatible with SDCC
+# in debug mode
+if env.GetBuildType() == "debug":
+    # inject build unflags and unflags that will be 
+    # processed later.
+    env.Append(BUILD_UNFLAGS=["-Og","-g2", "-ggdb2"])
+    env.Append(BUILD_FLAGS=["--debug", "--out-fmt-elf"])
+
+#
 # Target: Build executable and linkable firmware
 #
 
