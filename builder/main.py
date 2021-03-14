@@ -110,11 +110,8 @@ else:
             "-O", 
             "ihex", 
             "$SOURCES", 
-            "--only-section=HOME", 
-            "--only-section=GSINIT", 
-            "--only-section=GSFINAL", 
-            "--only-section=CODE", 
-            "--only-section=INITIALIZER", 
+            "--remove-section=\".debug*\"",
+            "--remove-section=SSEG",
             "$TARGET"])
     )
     env.Depends(target_firm, target_elf)
