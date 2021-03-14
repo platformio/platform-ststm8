@@ -6,6 +6,16 @@
     "cpu": "stm8",
     "mcu": "stm8s207k8t6"
   },
+  "debug": {
+    "svd_path": "STM8S207K8.svd",
+    "openocd_target": "stm8s",
+    "default_tools": [
+      "stlink"
+    ],
+    "onboard_tools": [
+      "stlink"
+    ]
+  },
   "frameworks": [
     "spl"
   ],

@@ -11,6 +11,10 @@
     "arduino",
     "spl"
   ],
+  "debug": {
+    "svd_path": "STM8S208MB.svd",
+    "openocd_target": "stm8s"
+  },
   "upload": {
     "maximum_ram_size": 6144,
     "maximum_size": 131072,
