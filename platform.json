@@ -32,7 +32,7 @@
      "toolchain-sdcc": {
       "type": "toolchain",
       "owner": "platformio",
-      "version": "~1.30804.10766"
+      "version": "~1.40100.0"
     },
     "framework-arduinoststm8": {
       "type": "framework",
@@ -51,11 +51,17 @@
       "owner": "platformio",
       "version": "0.230.0"
     },
-    "tool-stm8tools": {
+    "tool-stm8gal": {
       "type": "uploader",
       "optional": true,
       "owner": "platformio",
-      "version": "~0.40.181218"
+      "version": "~1.5.0"
+    },
+    "tool-stm8flash": {
+      "type": "uploader",
+      "optional": true,
+      "owner": "platformio",
+      "version": "~1.1.0"
     },
     "tool-openocd": {
       "type": "uploader",
