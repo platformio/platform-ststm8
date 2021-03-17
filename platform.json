@@ -38,7 +38,7 @@
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "0.50.0"
+      "version": "~0.50.0"
     },
     "framework-ststm8spl": {
       "type": "framework",
