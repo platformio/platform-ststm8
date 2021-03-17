@@ -105,6 +105,7 @@ else:
         env['LINKCOM'].replace("$LINKFLAGS", "$ldflags_for_hex")
     )
     env.Depends(target_firm, target_elf)
+    env.Depends(target_firm, "checkprogsize")
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
