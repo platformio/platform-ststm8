@@ -1,6 +1,6 @@
 # ST STM8: development platform for [PlatformIO](http://platformio.org)
 
-![alt text](https://github.com/platformio/platform-ststm8/workflows/Examples/badge.svg "ST STM8 development platform")
+[![Build Status](https://github.com/platformio/platform-ststm8/workflows/Examples/badge.svg)](https://github.com/platformio/platform-ststm8/actions)
 
 The STM8 is an 8-bit microcontroller family by STMicroelectronics an extended variant of the ST7 microcontroller architecture. STM8 microcontrollers are particularly low cost for a full-featured 8-bit microcontroller.
 
