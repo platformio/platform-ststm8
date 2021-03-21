@@ -174,7 +174,7 @@ elif "stlink" in upload_protocol:
         UPLOADER="stm8flash",
         UPLOADERFLAGS=[
             "-c", "$UPLOAD_PROTOCOL",
-            "-p", "%s" % flash_target,
+            "-p", flash_target,
             "-s", "flash", "-w"
         ],
         UPLOADCMD='"$UPLOADER" $UPLOADERFLAGS $SOURCE'
