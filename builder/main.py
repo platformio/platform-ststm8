@@ -111,6 +111,9 @@ else:
     # convert elf to hex not via sdcc but via stm8-objcopy.
     # otherwise the resulting ihex file has the debug sections (if --debug --out-fmt-elf is enabled)
     # in it and it fails to flash
+    # also remove sections which are put into SRAM (starting at 0x0) and cause upload failure.
+    # maybe it would be better to just copy the sections which end up in flash? 
+    # (HOME, GSINIT, GSFINAL, INITIALIZER, CODE and others?)
     target_firm = env.Command(
         join("$BUILD_DIR", "${PROGNAME}.ihx"),
         join("$BUILD_DIR", "${PROGNAME}.elf"), 
@@ -121,6 +124,8 @@ else:
             "$SOURCES", 
             "--remove-section=\".debug*\"",
             "--remove-section=SSEG",
+            "--remove-section=INITIALIZED",
+            "--remove-section=DATA",
             "$TARGET"])
     )
     env.Depends(target_firm, target_elf)
