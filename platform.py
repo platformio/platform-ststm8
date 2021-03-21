@@ -43,7 +43,7 @@ class Ststm8Platform(PlatformBase):
         upload_protocols = board.manifest.get("upload", {}).get(
             "protocols", [])
         if "tools" not in debug:
-            debug['tools'] = {}
+            debug["tools"] = {}
 
         # Configure OpenOCD debugging.
         # Only via ST-Link for now
@@ -64,17 +64,17 @@ class Ststm8Platform(PlatformBase):
                     ])
                     server_args.extend(debug.get("openocd_extra_args", []))
 
-                debug['tools'][link] = {
+                debug["tools"][link] = {
                     "server": {
                         "package": "tool-openocd",
                         "executable": "bin/openocd",
                         "arguments": server_args
                     }
                 }
-            debug['tools'][link]['onboard'] = link in debug.get(
+            debug["tools"][link]["onboard"] = link in debug.get(
                 "onboard_tools", [])
-            debug['tools'][link]['default'] = link in debug.get(
+            debug["tools"][link]["default"] = link in debug.get(
                 "default_tools", [])
 
-        board.manifest['debug'] = debug
+        board.manifest["debug"] = debug
         return board
