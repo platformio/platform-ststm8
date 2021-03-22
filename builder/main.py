@@ -97,14 +97,11 @@ env.Append(
 if env.get("PROGNAME", "program") == "program":
     env.Replace(PROGNAME="firmware")
 
-#
-# Automatically remove flags which are incompatible with SDCC
-# in debug mode
+# Automatically remove flags which are incompatible with SDCC in debug mode
+# Can be replaced by `PIODEBUGFLAGS` once PIO Core 5.2 is released
 if env.GetBuildType() == "debug":
-    # inject build unflags and unflags that will be 
-    # processed later.
-    env.Append(BUILD_UNFLAGS=["-Og","-g2", "-ggdb2"])
-    env.Append(BUILD_FLAGS=["--debug", "--out-fmt-elf"])
+    env.Append(BUILD_UNFLAGS=["-Og", "-g2", "-ggdb2"])
+    env.Append(CFLAGS=["--debug"])
 
 #
 # Target: Build executable and linkable firmware
@@ -161,7 +158,7 @@ if upload_protocol == "serial":
 
 elif "stlink" in upload_protocol:
     mcu = board_config.get("build.mcu")
-    # either derive value for the "part" switch from MCU name, or use the value 
+    # either derive value for the "part" switch from MCU name, or use the value
     # in the board manifest, in cases in which the derivation would be wrong.
     flash_target = board_config.get("upload.stm8flash_target", mcu[:8] + "?" + mcu[9])
     env.Replace(
