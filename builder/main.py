@@ -101,7 +101,7 @@ if env.get("PROGNAME", "program") == "program":
 # Can be replaced by `PIODEBUGFLAGS` once PIO Core 5.2 is released
 if env.GetBuildType() == "debug":
     env.Append(BUILD_UNFLAGS=["-Og", "-g2", "-ggdb2"])
-    env.Append(CFLAGS=["--debug"])
+    env.Append(CFLAGS=["--debug", "--out-fmt-elf"])
 
 #
 # Target: Build executable and linkable firmware
