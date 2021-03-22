@@ -16,7 +16,7 @@ import sys
 from os.path import join
 from platform import system
 
-from SCons.Script import (AlwaysBuild, COMMAND_LINE_TARGETS, Default,
+from SCons.Script import (AlwaysBuild, Builder, COMMAND_LINE_TARGETS, Default,
                           DefaultEnvironment)
 
 
@@ -73,16 +73,24 @@ env.Replace(
     PROGSUFFIX=".elf"
 )
 
-
-def _ldflags_for_hex(env, ldflags):
-    ldflags = ["--out-fmt-ihx" if f == "--out-fmt-elf" else f for f in ldflags]
-    return ldflags
-
-
 env.Append(
     ASFLAGS=env.get("CFLAGS", [])[:],
-    __ldflags_for_hex=_ldflags_for_hex,
-    ldflags_for_hex="${__ldflags_for_hex(__env__, LINKFLAGS)}"
+    BUILDERS=dict(
+        ElfToHex=Builder(
+            action=env.VerboseAction(" ".join([
+                "$OBJCOPY",
+                "-O",
+                "ihex",
+                "--remove-section=\".debug*\"",
+                "--remove-section=SSEG",
+                "--remove-section=INITIALIZED",
+                "--remove-section=DATA",
+                "$SOURCES",
+                "$TARGET"
+            ]), "Building $TARGET"),
+            suffix=".hex"
+        )
+    )
 )
 
 # Allow user to override via pre:script
@@ -108,27 +116,7 @@ if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.ihx")
 else:
     target_elf = env.BuildProgram()
-    # convert elf to hex not via sdcc but via stm8-objcopy.
-    # otherwise the resulting ihex file has the debug sections (if --debug --out-fmt-elf is enabled)
-    # in it and it fails to flash
-    # also remove sections which are put into SRAM (starting at 0x0) and cause upload failure.
-    # maybe it would be better to just copy the sections which end up in flash? 
-    # (HOME, GSINIT, GSFINAL, INITIALIZER, CODE and others?)
-    target_firm = env.Command(
-        join("$BUILD_DIR", "${PROGNAME}.ihx"),
-        join("$BUILD_DIR", "${PROGNAME}.elf"), 
-        " ".join(
-            ["$OBJCOPY",
-            "-O", 
-            "ihex", 
-            "$SOURCES", 
-            "--remove-section=\".debug*\"",
-            "--remove-section=SSEG",
-            "--remove-section=INITIALIZED",
-            "--remove-section=DATA",
-            "$TARGET"])
-    )
-    env.Depends(target_firm, target_elf)
+    target_firm = env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
     env.Depends(target_firm, "checkprogsize")
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
