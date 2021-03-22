@@ -23,10 +23,6 @@ from platformio.util import get_systype
 
 class Ststm8Platform(PlatformBase):
 
-    def configure_default_packages(self, variables, targets):
-        return PlatformBase.configure_default_packages(self, variables,
-                                                       targets)
-
     def get_boards(self, id_=None):
         result = PlatformBase.get_boards(self, id_)
         if not result:
