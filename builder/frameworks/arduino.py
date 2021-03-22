@@ -34,6 +34,10 @@ FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoststm8")
 assert isdir(FRAMEWORK_DIR)
 
 env.Append(
+    CCFLAGS=[
+        "--less-pedantic"
+    ],
+
     CPPDEFINES=[
         "ARDUINO_ARCH_STM8",
         ("ARDUINO", 10802),
