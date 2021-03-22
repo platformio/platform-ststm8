@@ -1,0 +1,34 @@
+{
+  "build": {
+    "core": "sduino",
+    "extra_flags": "-DSTM8S_NUCLEO_208RB -DSTM8S208",
+    "f_cpu": "16000000L",
+    "cpu": "stm8",
+    "mcu": "stm8s208rbt6"
+  },
+  "debug": {
+    "svd_path": "STM8S208RB.svd",
+    "openocd_target": "stm8s",
+    "default_tools": [
+      "stlink"
+    ],
+    "onboard_tools": [
+      "stlink"
+    ]
+  },
+  "frameworks": [
+    "spl"
+  ],
+  "upload": {
+    "maximum_ram_size": 6144,
+    "maximum_size": 131072,
+    "protocol": "stlinkv21",
+    "protocols": [
+      "stlinkv21",
+      "serial"
+    ]
+  },
+  "name": "NUCLEO-8S208RB",
+  "url": "https://www.st.com/en/evaluation-tools/nucleo-8s208rb.html",
+  "vendor": "STMicroelectronics"
+}

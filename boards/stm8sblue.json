@@ -11,6 +11,10 @@
     "arduino",
     "spl"
   ],
+  "debug": {
+    "svd_path": "STM8S103F3.svd",
+    "openocd_target": "stm8s103"
+  },
   "upload": {
     "maximum_ram_size": 1024,
     "maximum_size": 8192,
