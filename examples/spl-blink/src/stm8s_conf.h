@@ -37,56 +37,56 @@
 /* Uncomment the line below to enable peripheral header file inclusion */
 #if defined(STM8S105) || defined(STM8S005) || defined(STM8S103) || defined(STM8S003) ||\
     defined(STM8S001) || defined(STM8S903) || defined (STM8AF626x) || defined (STM8AF622x)
-#include "stm8s_adc1.h" 
+//#include "stm8s_adc1.h" 
 #endif /* (STM8S105) ||(STM8S103) || (STM8S001) || (STM8S903) || (STM8AF626x) */
 #if defined(STM8S208) || defined(STM8S207) || defined(STM8S007) || defined (STM8AF52Ax) ||\
     defined (STM8AF62Ax)
- #include "stm8s_adc2.h"
+// #include "stm8s_adc2.h"
 #endif /* (STM8S208) || (STM8S207) || (STM8AF62Ax) || (STM8AF52Ax) */
-#include "stm8s_awu.h"
-#include "stm8s_beep.h"
+//#include "stm8s_awu.h"
+//#include "stm8s_beep.h"
 #if defined (STM8S208) || defined (STM8AF52Ax)
- #include "stm8s_can.h"
+// #include "stm8s_can.h"
 #endif /* (STM8S208) || (STM8AF52Ax) */
-#include "stm8s_clk.h"
-#include "stm8s_exti.h"
-#include "stm8s_flash.h"
+//#include "stm8s_clk.h"
+//#include "stm8s_exti.h"
+//#include "stm8s_flash.h"
 #include "stm8s_gpio.h"
-#include "stm8s_i2c.h"
-#include "stm8s_itc.h"
-#include "stm8s_iwdg.h"
-#include "stm8s_rst.h"
-#include "stm8s_spi.h"
-#include "stm8s_tim1.h"
+//#include "stm8s_i2c.h"
+//#include "stm8s_itc.h"
+//#include "stm8s_iwdg.h"
+//#include "stm8s_rst.h"
+//#include "stm8s_spi.h"
+//#include "stm8s_tim1.h"
 #if !defined(STM8S903) && !defined(STM8AF622x)   /* SDCC patch: see https://github.com/tenbaht/sduino/tree/master/STM8S_StdPeriph_Driver */
- #include "stm8s_tim2.h"
+// #include "stm8s_tim2.h"
 #endif /* (STM8S903) || (STM8AF622x) */
 #if defined(STM8S208) || defined(STM8S207) || defined(STM8S007) ||defined(STM8S105) ||\
     defined(STM8S005) ||  defined (STM8AF52Ax) || defined (STM8AF62Ax) || defined (STM8AF626x)
- #include "stm8s_tim3.h"
+// #include "stm8s_tim3.h"
 #endif /* (STM8S208) || (STM8S207) || (STM8S007) || (STM8S105) */ 
 #if !defined(STM8S903) && !defined(STM8AF622x)   /* SDCC patch: see https://github.com/tenbaht/sduino/tree/master/STM8S_StdPeriph_Driver */
- #include "stm8s_tim4.h"
+// #include "stm8s_tim4.h"
 #endif /* (STM8S903) || (STM8AF622x) */
 #if defined(STM8S903) || defined(STM8AF622x)     /* SDCC patch: see https://github.com/tenbaht/sduino/tree/master/STM8S_StdPeriph_Driver */
- #include "stm8s_tim5.h"
- #include "stm8s_tim6.h"
+// #include "stm8s_tim5.h"
+// #include "stm8s_tim6.h"
 #endif  /* (STM8S903) || (STM8AF622x) */
 #if defined(STM8S208) || defined(STM8S207) || defined(STM8S007) || defined(STM8S103) ||\
     defined(STM8S003) || defined(STM8S001) || defined(STM8S903) || defined (STM8AF52Ax) || defined (STM8AF62Ax)
- #include "stm8s_uart1.h"
+// #include "stm8s_uart1.h"
 #endif /* (STM8S208) || (STM8S207) || (STM8S103) || (STM8S001) || (STM8S903) || (STM8AF52Ax) || (STM8AF62Ax) */
 #if defined(STM8S105) || defined(STM8S005) ||  defined (STM8AF626x)
- #include "stm8s_uart2.h"
+// #include "stm8s_uart2.h"
 #endif /* (STM8S105) || (STM8AF626x) */
 #if defined(STM8S208) ||defined(STM8S207) || defined(STM8S007) || defined (STM8AF52Ax) ||\
     defined (STM8AF62Ax)
- #include "stm8s_uart3.h"
+// #include "stm8s_uart3.h"
 #endif /* (STM8S208) || (STM8S207) || (STM8AF52Ax) || (STM8AF62Ax) */ 
 #if defined(STM8AF622x)                        /* SDCC patch: see https://github.com/tenbaht/sduino/tree/master/STM8S_StdPeriph_Driver */
- #include "stm8s_uart4.h"
+// #include "stm8s_uart4.h"
 #endif /* (STM8AF622x) */      
-#include "stm8s_wwdg.h"
+//#include "stm8s_wwdg.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
