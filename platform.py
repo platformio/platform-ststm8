@@ -17,6 +17,11 @@ from platformio.managers.platform import PlatformBase
 
 class Ststm8Platform(PlatformBase):
 
+    def configure_default_packages(self, variables, targets):
+        if "arduino" in variables.get("pioframework", []):
+            self.packages["toolchain-sdcc"]["version"] = "~1.30901.0"
+        return PlatformBase.configure_default_packages(self, variables, targets)
+
     def get_boards(self, id_=None):
         result = PlatformBase.get_boards(self, id_)
         if not result:
@@ -38,6 +43,8 @@ class Ststm8Platform(PlatformBase):
         # Configure OpenOCD debugging.
         # Only via ST-Link for now
         for link in ("stlink",):
+            if link not in upload_protocols or link in debug["tools"]:
+                continue
             if link == "stlink":
                 server_args = ["-s", "$PACKAGE_DIR/scripts"]
                 if debug.get("openocd_board"):
