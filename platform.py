@@ -43,8 +43,6 @@ class Ststm8Platform(PlatformBase):
         # Configure OpenOCD debugging.
         # Only via ST-Link for now
         for link in ("stlink",):
-            if link not in upload_protocols or link in debug["tools"]:
-                continue
             if link == "stlink":
                 server_args = ["-s", "$PACKAGE_DIR/scripts"]
                 if debug.get("openocd_board"):
