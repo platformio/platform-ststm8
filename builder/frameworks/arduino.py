@@ -23,6 +23,7 @@ http://arduino.cc/en/Reference/HomePage
 """
 
 import os
+import sys
 
 from SCons.Script import DefaultEnvironment
 
@@ -62,12 +63,18 @@ env.Append(
     ]
 )
 
-for _, _, files in os.walk(env.subst("$PROJECT_SRC_DIR")):
-    if any(f.lower().endswith((".cpp", ".cxx", ".cc")) for f in files):
-        print(
-            "Warning! Detected C++ source files which are not compatible with Arduino! "
-            "Only C/ASM sources are allowed."
-        )
+# By default PlatformIO generates "main.cpp" for the Arduino framework.
+# But Sduino doesn't support C++ sources. Exit if a file with a C++
+# extension is detected.
+for root, _, files in os.walk(env.subst("$PROJECT_SRC_DIR")):
+    for f in files:
+        if f.endswith((".cpp", ".cxx", ".cc")):
+            sys.stderr.write(
+                "Error: Detected C++ file `%s` which is not compatible with Arduino"
+                " framework as only C/ASM sources are allowed.\n"
+                % os.path.join(root, f)
+            )
+            env.Exit(1)
 
 #
 # Target: Build Core Library
