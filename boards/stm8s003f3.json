@@ -16,8 +16,8 @@
     "maximum_size": 8192,
     "protocol": "stlinkv2",
     "protocols": [
-        "serial",
-        "stlinkv2"
+      "serial",
+      "stlinkv2"
     ]
   },
   "name": "ST STM8S003F3 chip",
