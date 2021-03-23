@@ -7,6 +7,10 @@
     "mcu": "stm8s003f3p6",
     "variant": "standard"
   },
+  "debug": {
+    "svd_path": "STM8S003F3.svd",
+    "openocd_target": "stm8s003"
+  },
   "frameworks": [
     "arduino",
     "spl"
