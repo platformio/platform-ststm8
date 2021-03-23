@@ -34,6 +34,19 @@ board_config = env.BoardConfig()
 FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoststm8")
 assert os.path.isdir(FRAMEWORK_DIR)
 
+
+def inject_dummy_reference_to_main():
+    build_dir = env.subst("$BUILD_DIR")
+    dummy_file = os.path.join(build_dir, "_pio_main_ref.c")
+    if not os.path.isfile(dummy_file):
+        if not os.path.isdir(build_dir):
+            os.makedirs(build_dir)
+        with open(dummy_file, "w") as fp:
+            fp.write("void main(void);void (*dummy_variable) () = main;")
+
+    env.Append(PIOBUILDFILES=dummy_file)
+
+
 env.Append(
     CCFLAGS=[
         "--less-pedantic"
@@ -62,6 +75,11 @@ env.Append(
         os.path.join(FRAMEWORK_DIR, "libraries")
     ]
 )
+
+# Fixes possible issue with "ASlink-Warning-No definition of area SSEG" error.
+# This message means that main.c is not pulled in by the linker because there was no
+# reference to main() anywhere. Details: https://tenbaht.github.io/sduino/usage/faq/
+inject_dummy_reference_to_main()
 
 # By default PlatformIO generates "main.cpp" for the Arduino framework.
 # But Sduino doesn't support C++ sources. Exit if a file with a C++
