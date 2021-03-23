@@ -22,7 +22,7 @@ kinds of creative coding, interactive objects, spaces or physical experiences.
 http://arduino.cc/en/Reference/HomePage
 """
 
-from os.path import isdir, join
+import os
 
 from SCons.Script import DefaultEnvironment
 
@@ -31,7 +31,7 @@ platform = env.PioPlatform()
 board_config = env.BoardConfig()
 
 FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoststm8")
-assert isdir(FRAMEWORK_DIR)
+assert os.path.isdir(FRAMEWORK_DIR)
 
 env.Append(
     CCFLAGS=[
@@ -47,20 +47,27 @@ env.Append(
     ],
 
     CPPPATH=[
-        join(FRAMEWORK_DIR, "cores", env.BoardConfig().get("build.core")),
-        join(FRAMEWORK_DIR, "STM8S_StdPeriph_Driver", "inc")
+        os.path.join(FRAMEWORK_DIR, "cores", env.BoardConfig().get("build.core")),
+        os.path.join(FRAMEWORK_DIR, "STM8S_StdPeriph_Driver", "inc")
     ],
 
     LIBPATH=[
-        join(FRAMEWORK_DIR, "STM8S_StdPeriph_Driver", "lib")
+        os.path.join(FRAMEWORK_DIR, "STM8S_StdPeriph_Driver", "lib")
     ],
 
     LIBS=[board_config.get("build.mcu")[0:8].upper()],
 
     LIBSOURCE_DIRS=[
-        join(FRAMEWORK_DIR, "libraries")
+        os.path.join(FRAMEWORK_DIR, "libraries")
     ]
 )
+
+for _, _, files in os.walk(env.subst("$PROJECT_SRC_DIR")):
+    if any(f.lower().endswith((".cpp", ".cxx", ".cc")) for f in files):
+        print(
+            "Warning! Detected C++ source files which are not compatible with Arduino! "
+            "Only C/ASM sources are allowed."
+        )
 
 #
 # Target: Build Core Library
@@ -71,18 +78,18 @@ libs = []
 if "build.variant" in env.BoardConfig():
     env.Append(
         CPPPATH=[
-            join(FRAMEWORK_DIR, "variants",
-                 env.BoardConfig().get("build.variant"))
+            os.path.join(
+                FRAMEWORK_DIR, "variants", env.BoardConfig().get("build.variant"))
         ]
     )
     libs.append(env.BuildLibrary(
-        join("$BUILD_DIR", "FrameworkArduinoVariant"),
-        join(FRAMEWORK_DIR, "variants", env.BoardConfig().get("build.variant"))
+        os.path.join("$BUILD_DIR", "FrameworkArduinoVariant"),
+        os.path.join(FRAMEWORK_DIR, "variants", env.BoardConfig().get("build.variant"))
     ))
 
 libs.append(env.BuildLibrary(
-    join("$BUILD_DIR", "FrameworkArduino"),
-    join(FRAMEWORK_DIR, "cores", env.BoardConfig().get("build.core"))
+    os.path.join("$BUILD_DIR", "FrameworkArduino"),
+    os.path.join(FRAMEWORK_DIR, "cores", env.BoardConfig().get("build.core"))
 ))
 
 env.Prepend(LIBS=libs)
