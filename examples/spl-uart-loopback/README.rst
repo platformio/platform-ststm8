@@ -20,7 +20,7 @@ How to build PlatformIO based project
 .. code-block:: bash
 
     # Change directory to example
-    > cd platform-ststm8/examples/spl-uart
+    > cd platform-ststm8/examples/spl-uart-loopback
 
     # Build project
     > platformio run
