@@ -49,6 +49,6 @@ The pinmapping is such that the built-in LED of those boards is automatically us
 
 The project does not any framework like Arduino or SPL for compilation, hence no `framework = ..` line in the `platformio.ini`. Only one `.c` file and the right `.h` device header file is used.
 
-The project uses a copy of the FOSS header files for the three devices from https://github.com/gicking/STM8_headers, which are placed under the MIT license. A copy of the license is included.
+The project uses the FOSS header files from https://github.com/gicking/STM8_headers, which are placed under the MIT license. 
 
-If you wish to adapt this example for more chips and boards, add the appropriate header file from the referenced repository and include that header.
+If you wish to adapt this example for more chips and boards, add a new environment for your chip, find the appropriate header file from the referenced repository and include that header.
