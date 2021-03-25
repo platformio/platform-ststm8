@@ -7,7 +7,8 @@ environment:
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-ping-hc04"
     - PLATFORMIO_PROJECT_DIR: "examples/spl-blink"
     - PLATFORMIO_PROJECT_DIR: "examples/spl-flash"
-    - PLATFORMIO_PROJECT_DIR: "examples/spl-uart"
+    - PLATFORMIO_PROJECT_DIR: "examples/spl-uart-loopback"
+    - PLATFORMIO_PROJECT_DIR: "examples/spl-uart-simple-printf"
     - PLATFORMIO_PROJECT_DIR: "examples/native-blink"
 
 install:
