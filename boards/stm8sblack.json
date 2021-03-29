@@ -7,6 +7,10 @@
     "mcu": "stm8s105k4t6",
     "variant": "stm8sblack"
   },
+  "debug": {
+    "svd_path": "STM8S105K4.svd",
+    "openocd_target": "stm8s105"
+  },
   "frameworks": [
     "arduino",
     "spl"

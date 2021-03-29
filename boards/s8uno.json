@@ -7,6 +7,10 @@
     "mcu": "stm8s105k6t6",
     "variant": "s8uno"
   },
+  "debug": {
+    "svd_path": "STM8S105K6.svd",
+    "openocd_target": "stm8s105"
+  },
   "frameworks": [
     "arduino",
     "spl"

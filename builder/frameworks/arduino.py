@@ -22,7 +22,8 @@ kinds of creative coding, interactive objects, spaces or physical experiences.
 http://arduino.cc/en/Reference/HomePage
 """
 
-from os.path import isdir, join
+import os
+import sys
 
 from SCons.Script import DefaultEnvironment
 
@@ -31,9 +32,26 @@ platform = env.PioPlatform()
 board_config = env.BoardConfig()
 
 FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoststm8")
-assert isdir(FRAMEWORK_DIR)
+assert os.path.isdir(FRAMEWORK_DIR)
+
+
+def inject_dummy_reference_to_main():
+    build_dir = env.subst("$BUILD_DIR")
+    dummy_file = os.path.join(build_dir, "_pio_main_ref.c")
+    if not os.path.isfile(dummy_file):
+        if not os.path.isdir(build_dir):
+            os.makedirs(build_dir)
+        with open(dummy_file, "w") as fp:
+            fp.write("void main(void);void (*dummy_variable) () = main;")
+
+    env.Append(PIOBUILDFILES=dummy_file)
+
 
 env.Append(
+    CCFLAGS=[
+        "--less-pedantic"
+    ],
+
     CPPDEFINES=[
         "ARDUINO_ARCH_STM8",
         ("ARDUINO", 10802),
@@ -43,20 +61,38 @@ env.Append(
     ],
 
     CPPPATH=[
-        join(FRAMEWORK_DIR, "cores", env.BoardConfig().get("build.core")),
-        join(FRAMEWORK_DIR, "STM8S_StdPeriph_Driver", "inc")
+        os.path.join(FRAMEWORK_DIR, "cores", env.BoardConfig().get("build.core")),
+        os.path.join(FRAMEWORK_DIR, "STM8S_StdPeriph_Driver", "inc")
     ],
 
     LIBPATH=[
-        join(FRAMEWORK_DIR, "STM8S_StdPeriph_Driver", "lib")
+        os.path.join(FRAMEWORK_DIR, "STM8S_StdPeriph_Driver", "lib")
     ],
 
     LIBS=[board_config.get("build.mcu")[0:8].upper()],
 
     LIBSOURCE_DIRS=[
-        join(FRAMEWORK_DIR, "libraries")
+        os.path.join(FRAMEWORK_DIR, "libraries")
     ]
 )
+
+# Fixes possible issue with "ASlink-Warning-No definition of area SSEG" error.
+# This message means that main.c is not pulled in by the linker because there was no
+# reference to main() anywhere. Details: https://tenbaht.github.io/sduino/usage/faq/
+inject_dummy_reference_to_main()
+
+# By default PlatformIO generates "main.cpp" for the Arduino framework.
+# But Sduino doesn't support C++ sources. Exit if a file with a C++
+# extension is detected.
+for root, _, files in os.walk(env.subst("$PROJECT_SRC_DIR")):
+    for f in files:
+        if f.endswith((".cpp", ".cxx", ".cc")):
+            sys.stderr.write(
+                "Error: Detected C++ file `%s` which is not compatible with Arduino"
+                " framework as only C/ASM sources are allowed.\n"
+                % os.path.join(root, f)
+            )
+            env.Exit(1)
 
 #
 # Target: Build Core Library
@@ -67,18 +103,18 @@ libs = []
 if "build.variant" in env.BoardConfig():
     env.Append(
         CPPPATH=[
-            join(FRAMEWORK_DIR, "variants",
-                 env.BoardConfig().get("build.variant"))
+            os.path.join(
+                FRAMEWORK_DIR, "variants", env.BoardConfig().get("build.variant"))
         ]
     )
     libs.append(env.BuildLibrary(
-        join("$BUILD_DIR", "FrameworkArduinoVariant"),
-        join(FRAMEWORK_DIR, "variants", env.BoardConfig().get("build.variant"))
+        os.path.join("$BUILD_DIR", "FrameworkArduinoVariant"),
+        os.path.join(FRAMEWORK_DIR, "variants", env.BoardConfig().get("build.variant"))
     ))
 
 libs.append(env.BuildLibrary(
-    join("$BUILD_DIR", "FrameworkArduino"),
-    join(FRAMEWORK_DIR, "cores", env.BoardConfig().get("build.core"))
+    os.path.join("$BUILD_DIR", "FrameworkArduino"),
+    os.path.join(FRAMEWORK_DIR, "cores", env.BoardConfig().get("build.core"))
 ))
 
 env.Prepend(LIBS=libs)

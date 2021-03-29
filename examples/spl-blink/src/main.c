@@ -38,8 +38,19 @@
 /* Private define ------------------------------------------------------------*/
 /* Evalboard I/Os configuration */
 
+/* automatically use built-in LED for known nucleo boards */
+#if defined(STM8S_NUCLEO_208RB) || defined(STM8S_NUCLEO_207K8) 
+#define LED_GPIO_PORT  (GPIOC)
+#define LED_GPIO_PINS  (GPIO_PIN_5)
+#elif defined(STM8S103)
+/* for STM8S103F3 breakout board. building with GPIOG would result in failure (chip 
+ * does not have that GPIO peripheral) */
+#define LED_GPIO_PORT  (GPIOB)
+#define LED_GPIO_PINS  (GPIO_PIN_5)	
+#else 
 #define LED_GPIO_PORT  (GPIOG)
 #define LED_GPIO_PINS  (GPIO_PIN_3 | GPIO_PIN_2 | GPIO_PIN_1 | GPIO_PIN_0)
+#endif
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/

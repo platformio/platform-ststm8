@@ -15,7 +15,9 @@ jobs:
           - "examples/arduino-ping-hc04"
           - "examples/spl-blink"
           - "examples/spl-flash"
-          - "examples/spl-uart"
+          - "examples/spl-uart-loopback"
+          - "examples/spl-uart-simple-printf"
+          - "examples/native-blink"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2

@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-ststm8.git"
   },
-  "version": "1.0.3",
+  "version": "2.0.0",
   "frameworks": {
     "arduino": {
       "package": "framework-arduinoststm8",
@@ -32,13 +32,16 @@
      "toolchain-sdcc": {
       "type": "toolchain",
       "owner": "platformio",
-      "version": "~1.30804.10766"
+      "version": "~1.40100.0",
+      "optionalVersions": [
+        "~1.30901.0"
+      ]
     },
     "framework-arduinoststm8": {
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "0.40.181216"
+      "version": "~0.50.0"
     },
     "framework-ststm8spl": {
       "type": "framework",
@@ -51,11 +54,17 @@
       "owner": "platformio",
       "version": "0.230.0"
     },
-    "tool-stm8tools": {
+    "tool-stm8gal": {
       "type": "uploader",
       "optional": true,
       "owner": "platformio",
-      "version": "~0.40.181218"
+      "version": "~1.5.0"
+    },
+    "tool-stm8flash": {
+      "type": "uploader",
+      "optional": true,
+      "owner": "platformio",
+      "version": "~1.1.0"
     },
     "tool-openocd": {
       "type": "uploader",

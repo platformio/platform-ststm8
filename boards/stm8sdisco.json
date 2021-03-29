@@ -8,23 +8,14 @@
     "variant": "stm8sdisco"
   },
   "debug": {
+    "svd_path": "STM8S105C6.svd",
     "openocd_target": "stm8s",
-    "tools": {
-      "stlink": {
-        "default": true,
-        "server": {
-          "arguments": [
-            "-f",
-            "scripts/interface/stlink.cfg",
-            "-f",
-            "scripts/target/stm8s.cfg"
-          ],
-          "executable": "bin/openocd",
-          "package": "tool-openocd"
-        },
-        "onboard": true
-      }
-    }
+    "default_tools": [
+      "stlink"
+    ],
+    "onboard_tools": [
+      "stlink"
+    ]
   },
   "frameworks": [
     "arduino",

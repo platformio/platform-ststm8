@@ -20,7 +20,7 @@ How to build PlatformIO based project
 .. code-block:: bash
 
     # Change directory to example
-    > cd platform-ststm8/examples/spl-blink
+    > cd platform-ststm8/examples/spl-uart-simple-printf
 
     # Build project
     > platformio run
@@ -36,8 +36,3 @@ How to build PlatformIO based project
 
     # Clean build files
     > platformio run --target clean
-
-Notes regarding SPL setup
-=========================
-
-Please see the `src/stm8s_conf.h` file for activating more SPL modules, if you wish to expand the functionality of this example. Only modules (like ADC, UART, etc.) that are activated in the configuration file are compiled in. In this example, only the GPIO module is active. Activating unused modules will result in a higher flash usage that will make even compilation even impossible for smaller chips, to care must be taken.

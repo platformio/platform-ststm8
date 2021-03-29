@@ -1,0 +1,30 @@
+{
+  "build": {
+    "core": "sduino",
+    "extra_flags": "-DSTM8S_003 -DSTM8S003",
+    "f_cpu": "16000000L",
+    "cpu": "stm8",
+    "mcu": "stm8s003f3p6",
+    "variant": "standard"
+  },
+  "debug": {
+    "svd_path": "STM8S003F3.svd",
+    "openocd_target": "stm8s003"
+  },
+  "frameworks": [
+    "arduino",
+    "spl"
+  ],
+  "upload": {
+    "maximum_ram_size": 1024,
+    "maximum_size": 8192,
+    "protocol": "stlinkv2",
+    "protocols": [
+      "serial",
+      "stlinkv2"
+    ]
+  },
+  "name": "ST STM8S003F3 chip",
+  "url": "https://www.st.com/resource/en/datasheet/stm8s003f3.pdf",
+  "vendor": "ST"
+}

@@ -16,7 +16,7 @@ import sys
 from os.path import join
 from platform import system
 
-from SCons.Script import (AlwaysBuild, COMMAND_LINE_TARGETS, Default,
+from SCons.Script import (AlwaysBuild, Builder, COMMAND_LINE_TARGETS, Default,
                           DefaultEnvironment)
 
 
@@ -30,7 +30,7 @@ env.Replace(
     GDB="stm8-gdb",
     LD="sdldstm8",
     RANLIB="sdranlib",
-    OBJCOPY="sdobjcopy",
+    OBJCOPY="stm8-objcopy",
     SIZETOOL="stm8-size",
     OBJSUFFIX=".rel",
     LIBSUFFIX=".lib",
@@ -73,21 +73,35 @@ env.Replace(
     PROGSUFFIX=".elf"
 )
 
-
-def _ldflags_for_hex(env, ldflags):
-    ldflags = ["--out-fmt-ihx" if f == "--out-fmt-elf" else f for f in ldflags]
-    return ldflags
-
-
 env.Append(
     ASFLAGS=env.get("CFLAGS", [])[:],
-    __ldflags_for_hex=_ldflags_for_hex,
-    ldflags_for_hex="${__ldflags_for_hex(__env__, LINKFLAGS)}"
+    BUILDERS=dict(
+        ElfToHex=Builder(
+            action=env.VerboseAction(" ".join([
+                "$OBJCOPY",
+                "-O",
+                "ihex",
+                "--remove-section=\".debug*\"",
+                "--remove-section=SSEG",
+                "--remove-section=INITIALIZED",
+                "--remove-section=DATA",
+                "$SOURCES",
+                "$TARGET"
+            ]), "Building $TARGET"),
+            suffix=".hex"
+        )
+    )
 )
 
 # Allow user to override via pre:script
 if env.get("PROGNAME", "program") == "program":
     env.Replace(PROGNAME="firmware")
+
+# Automatically remove flags which are incompatible with SDCC in debug mode
+# Can be replaced by `PIODEBUGFLAGS` once PIO Core 5.2 is released
+if env.GetBuildType() == "debug":
+    env.Append(BUILD_UNFLAGS=["-Og", "-g2", "-ggdb2"])
+    env.Append(CFLAGS=["--debug", "--out-fmt-elf"])
 
 #
 # Target: Build executable and linkable firmware
@@ -99,12 +113,8 @@ if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.ihx")
 else:
     target_elf = env.BuildProgram()
-    target_firm = env.Command(
-        join("$BUILD_DIR", "${PROGNAME}.ihx"),
-        env['PIOBUILDFILES'],
-        env['LINKCOM'].replace("$LINKFLAGS", "$ldflags_for_hex")
-    )
-    env.Depends(target_firm, target_elf)
+    target_firm = env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
+    env.Depends(target_firm, "checkprogsize")
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
@@ -148,11 +158,14 @@ if upload_protocol == "serial":
 
 elif "stlink" in upload_protocol:
     mcu = board_config.get("build.mcu")
+    # either derive value for the "part" switch from MCU name, or use the value
+    # in the board manifest, in cases in which the derivation would be wrong.
+    flash_target = board_config.get("upload.stm8flash_target", mcu[:8] + "?" + mcu[9])
     env.Replace(
         UPLOADER="stm8flash",
         UPLOADERFLAGS=[
             "-c", "$UPLOAD_PROTOCOL",
-            "-p", "%s" % mcu[:8] + "?" + mcu[9],
+            "-p", flash_target,
             "-s", "flash", "-w"
         ],
         UPLOADCMD='"$UPLOADER" $UPLOADERFLAGS $SOURCE'
