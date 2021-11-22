@@ -12,30 +12,30 @@
 How to build PlatformIO based project
 =====================================
 
-1. `Install PlatformIO Core <http://docs.platformio.org/page/core.html>`_
-2. Download `development platform with examples <https://github.com/platformio/platform-ststm8/archive/develop.zip>`_
+1. [Install PlatformIO Core](http://docs.platformio.org/page/core.html)
+2. Download [development platform with examples](https://github.com/platformio/platform-ststm8/archive/develop.zip)
 3. Extract ZIP archive
 4. Run these commands:
 
-.. code-block:: bash
+```shell
+# Change directory to example
+$ cd platform-ststm8/examples/spl-blink
 
-    # Change directory to example
-    > cd platform-ststm8/examples/spl-blink
+# Build project
+$ pio run
 
-    # Build project
-    > platformio run
+# Upload firmware
+$ pio run --target upload
 
-    # Upload firmware
-    > platformio run --target upload
+# Build specific environment
+$ pio run -e stm8sdisco
 
-    # Build specific environment
-    > platformio run -e stm8sdisco
+# Upload firmware for the specific environment
+$ pio run -e stm8sdisco --target upload
 
-    # Upload firmware for the specific environment
-    > platformio run -e stm8sdisco --target upload
-
-    # Clean build files
-    > platformio run --target clean
+# Clean build files
+$ pio run --target clean
+```
 
 Notes regarding SPL setup
 =========================
