@@ -37,7 +37,7 @@ env.Replace(
 
     ARFLAGS=["rcs"],
 
-    ASFLAGS=["-x", "assembler-with-cpp", "-flto"],
+    ASPPFLAGS=["-x", "assembler-with-cpp", "-flto"],
 
     CFLAGS=[
         "-m%s" % board_config.get("build.cpu")
