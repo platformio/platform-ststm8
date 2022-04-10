@@ -32,7 +32,7 @@
      "toolchain-sdcc": {
       "type": "toolchain",
       "owner": "platformio",
-      "version": "~1.40100.0",
+      "version": "~1.40200.0",
       "optionalVersions": [
         "~1.30901.0"
       ]
