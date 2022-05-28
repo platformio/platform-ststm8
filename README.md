@@ -1,4 +1,4 @@
-# ST STM8: development platform for [PlatformIO](http://platformio.org)
+# ST STM8: development platform for [PlatformIO](https://platformio.org)
 
 [![Build Status](https://github.com/platformio/platform-ststm8/workflows/Examples/badge.svg)](https://github.com/platformio/platform-ststm8/actions)
 
@@ -9,7 +9,7 @@ The STM8 is an 8-bit microcontroller family by STMicroelectronics an extended va
 
 # Usage
 
-1. [Install PlatformIO](http://platformio.org)
+1. [Install PlatformIO](https://platformio.org)
 2. Create PlatformIO project and configure a platform option in [platformio.ini](https://docs.platformio.org/page/projectconf.html) file:
 
 ## Stable version
