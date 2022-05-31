@@ -37,7 +37,7 @@ env.Replace(
 
     ARFLAGS=["rcs"],
 
-    ASFLAGS=["-x", "assembler-with-cpp", "-flto"],
+    ASPPFLAGS=["-x", "assembler-with-cpp", "-flto"],
 
     CFLAGS=[
         "-m%s" % board_config.get("build.cpu")
@@ -63,7 +63,7 @@ env.Replace(
 
     LIBS=["stm8"],
 
-    SIZEPROGREGEXP=r"^(?:HOME|GSINIT|GSFINAL|CODE|INITIALIZER)\s+([0-9]+).*",
+    SIZEPROGREGEXP=r"^(?:HOME|GSINIT|GSFINAL|CONST|CODE|INITIALIZER)\s+([0-9]+).*",
     SIZEDATAREGEXP=r"^(?:DATA|INITIALIZED)\s+([0-9]+).*",
     SIZEEEPROMREGEXP=r"^(?:EEPROM)\s+([0-9]+).*",
     SIZECHECKCMD="$SIZETOOL -A $SOURCES",
